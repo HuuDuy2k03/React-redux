@@ -9,12 +9,24 @@ body {
 
 .app-container {
   .Header-container {
-    .navbar-nav  {
-      .nav-link{
-        &.active{
-          color: #00bfff;
+    .navbar {
+      z-index: 10;
+      .navbar-nav {
+        .nav-link {
+          &.active {
+            color: #00bfff;
+          }
         }
       }
+    }
+  }
+  .Main-container {
+    video {
+      position: fixed;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
     }
   }
 }
