@@ -13,6 +13,7 @@ import { SiReactivex } from "react-icons/si";
 import { MdDashboard } from "react-icons/md";
 import sidebarBg from '../../assets/bg2.jpg';
 import "./SideBar.scss"; // Assuming you have some styles for the SideBar component
+import { Link } from "react-router-dom";
 
 
 const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
@@ -53,6 +54,7 @@ const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
               icon={<MdDashboard />}
             >
               Dashboard
+              <Link to="/admins" />
             </MenuItem>
             
           </Menu>
@@ -61,9 +63,9 @@ const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
               icon={<FaGem />}
               title="Features"
             >
-              <MenuItem>Quản lý Users</MenuItem>
-              <MenuItem>Quản lý Quiz</MenuItem>
-              <MenuItem>Quản lý Questions</MenuItem>
+              <MenuItem>Quản lý Users <Link to="/admins/manage-user" /></MenuItem>
+              <MenuItem>Quản lý Quiz <Link to="/admins/manage-quiz" /></MenuItem>
+              <MenuItem>Quản lý Questions <Link to="/admins/manage-questions" /></MenuItem>
             </SubMenu>
           </Menu>
         </SidebarContent>
