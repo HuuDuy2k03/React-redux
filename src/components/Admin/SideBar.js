@@ -8,8 +8,11 @@ import {
   SidebarFooter,
   SidebarContent,
 } from 'react-pro-sidebar';
-import { FaTachometerAlt, FaGem, FaGithub, FaRegLaughWink } from 'react-icons/fa';
+import { FaGem, FaGithub } from 'react-icons/fa';
+import { SiReactivex } from "react-icons/si";
+import { MdDashboard } from "react-icons/md";
 import sidebarBg from '../../assets/bg2.jpg';
+import "./SideBar.scss"; // Assuming you have some styles for the SideBar component
 
 
 const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
@@ -33,8 +36,13 @@ const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
               overflow: "hidden",
               textOverflow: "ellipsis",
               whiteSpace: "nowrap",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "5px",
             }}
           >
+            <SiReactivex size={"3em"}  color={"#61DAFB"}/>
             QWQ
           </div>
         </SidebarHeader>
@@ -42,28 +50,20 @@ const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
         <SidebarContent>
           <Menu iconShape="circle">
             <MenuItem
-              icon={<FaTachometerAlt />}
-              suffix={
-                <span className="badge red">
-                  New
-                </span>
-              }
+              icon={<MdDashboard />}
             >
               Dashboard
             </MenuItem>
-            <MenuItem icon={<FaGem />}>
-              {" "}
-              Components
-            </MenuItem>
+            
           </Menu>
           <Menu iconShape="circle">
             <SubMenu
-              suffix={<span className="badge yellow">3</span>}
-              icon={<FaRegLaughWink />}
+              icon={<FaGem />}
+              title="Features"
             >
-              <MenuItem>Submenu 1</MenuItem>
-              <MenuItem>Submenu 2</MenuItem>
-              <MenuItem>Submenu 3</MenuItem>
+              <MenuItem>Quản lý Users</MenuItem>
+              <MenuItem>Quản lý Quiz</MenuItem>
+              <MenuItem>Quản lý Questions</MenuItem>
             </SubMenu>
           </Menu>
         </SidebarContent>
