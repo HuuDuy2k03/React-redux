@@ -13,8 +13,8 @@ import {
 import User from './components/User/User';
 import Admin from './components/Admin/Admin';
 import HomePage from './components/Home/HomePage';
-import DashBoard from './components/Content/DashBoard';
-import ManageUser from './components/Content/ManageUser';
+import DashBoard from './components/Admin/Content/DashBoard';
+import ManageUser from './components/Admin/Content/ManageUser';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
