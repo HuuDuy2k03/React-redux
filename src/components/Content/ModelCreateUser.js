@@ -3,6 +3,7 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
+import { toast } from 'react-toastify';
 
 const ModelCreateUser = ({show, setShow}) => {
 
@@ -31,20 +32,28 @@ const ModelCreateUser = ({show, setShow}) => {
     //   setImagePreview(null);
     }
   };
+  const validateEmail = (email) => {
+        return String(email)
+            .toLowerCase()
+            .match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    };
 
   const handleSubmitCreateUser = async () => {
     //Validate
+    const isValidEmail = validateEmail(email);
+    const isValidPassword = password && password.length >= 6;
+    if (!isValidEmail) {
+      toast.error("Invalid email");
+      return;
+    }
+    if(!isValidPassword) {
+        toast.error("Invalid password (6 characters or more)");
+        return;
+    }
 
-    //Call apis
-    // let data = {
-    //   email: email,
-    //   password: password,
-    //   username: username,
-    //   role: role,
-    //   userImage: image
-    // };
-    // console.log(">>> Check data submit: ", data);
-
+    //submit data
     const formData = new FormData();
     formData.append("email", email);
     formData.append("password", password);
@@ -53,7 +62,14 @@ const ModelCreateUser = ({show, setShow}) => {
     formData.append("userImage", image);
 
     let res = await axios.post("http://localhost:8081/api/v1/participant", formData);
-    console.log(">>> Check create user response: ", res);
+    console.log(">>> Check create user response: ", res.data);
+    if(res && res.data && res.data.EC === 0) {
+      toast.success(res.data.EM);
+      handleClose();
+    }
+    if(res && res.data && res.data.EC !== 0) {
+      toast.error(res.data.EM);
+    }
   };
 
 return (
