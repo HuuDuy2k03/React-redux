@@ -41,7 +41,7 @@ const ManageUser = (props) => {
           <TableUsers listUsers={listUsers} handleClickBtnUpdate={handleClickBtnUpdate} />
         </div>
         <ModelCreateUser show={showModalCreateUser} setShow={setShowModalCreateUser} fetchListUsers={fetchListUsers} />
-        <ModelUpdateUser show={showModalUpdateUser} setShow={setShowModalUpdateUser} dataUpdate={dataUpdate} fetchListUsers={fetchListUsers} />
+        <ModelUpdateUser show={showModalUpdateUser} setShow={setShowModalUpdateUser} dataUpdate={dataUpdate}  fetchListUsers={fetchListUsers} />
       </div>
     </div>
   );

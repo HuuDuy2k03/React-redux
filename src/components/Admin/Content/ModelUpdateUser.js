@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
-import { postCreateNewUser } from "../../../services/apiService";
+import { PutUpdateUser } from "../../../services/apiService";
 import _ from "lodash";
 
 const ModelUpdateUser = ({ dataUpdate, show, setShow, fetchListUsers }) => {
@@ -25,16 +25,21 @@ const ModelUpdateUser = ({ dataUpdate, show, setShow, fetchListUsers }) => {
   const [imagePreview, setImagePreview] = useState(null);
 
   useEffect(() => {
-    if (!_.isEmpty(dataUpdate)) {
+    if (show && !_.isEmpty(dataUpdate)) {
       setEmail(dataUpdate.email);
       setUsername(dataUpdate.username);
       setRole(dataUpdate.role);
       setImage("");
-      if(dataUpdate.image) {    
-      setImagePreview(`data:image/jpeg;base64,${dataUpdate.image}`);
+      if (dataUpdate.image) {
+        setImagePreview(`data:image/jpeg;base64,${dataUpdate.image}`);
+      } else {
+        setImagePreview("");
       }
     }
-  }, [dataUpdate]);
+    console.log("Data Update:", dataUpdate);
+    console.log("Show Modal:", show);
+  }, [dataUpdate, show]);
+
 
   const handleUploadImage = (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -52,27 +57,13 @@ const ModelUpdateUser = ({ dataUpdate, show, setShow, fetchListUsers }) => {
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       );
   };
-  const validatePassword = (pw) => {
-    return /[A-Z]/.test(pw) &&
-           /[a-z]/.test(pw) &&
-           /[0-9]/.test(pw) &&
-           /[^A-Za-z0-9]/.test(pw) &&
-           pw.length > 4;
-  }
 
   const handleSubmitCreateUser = async () => {
     //Validate
     const isValidEmail = validateEmail(email);
-    const isValidPassword = validatePassword(password);
     const isValidUsername = username && username.length >= 3;
     if (!isValidEmail) {
       toast.error("Invalid email");
-      return;
-    }
-    if (!isValidPassword) {
-      toast.error(
-        "Password must be at least 5 characters, include uppercase, lowercase, number, and special character"
-      );
       return;
     }
 
@@ -81,7 +72,7 @@ const ModelUpdateUser = ({ dataUpdate, show, setShow, fetchListUsers }) => {
       return;
     }
 
-    let data = await postCreateNewUser(email, password, username, role, image);
+    let data = await PutUpdateUser(dataUpdate.id, username, role, image);
     if (data && data.EC === 0) {
       toast.success(data.EM);
       handleClose();
