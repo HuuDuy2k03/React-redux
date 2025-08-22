@@ -5,7 +5,7 @@ import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
 import { postCreateNewUser } from "../../../services/apiService";
 
-const ModelCreateUser = ({ show, setShow }) => {
+const ModelCreateUser = ({ show, setShow, fetchListUsers }) => {
   const handleClose = () => {
     setShow(false);
     setUsername("");
@@ -38,17 +38,32 @@ const ModelCreateUser = ({ show, setShow }) => {
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       );
   };
+  const validatePassword = (pw) => {
+    return /[A-Z]/.test(pw) &&
+           /[a-z]/.test(pw) &&
+           /[0-9]/.test(pw) &&
+           /[^A-Za-z0-9]/.test(pw) &&
+           pw.length > 4;
+  }
 
   const handleSubmitCreateUser = async () => {
     //Validate
     const isValidEmail = validateEmail(email);
-    const isValidPassword = password && password.length >= 6;
+    const isValidPassword = validatePassword(password);
+    const isValidUsername = username && username.length >= 3;
     if (!isValidEmail) {
       toast.error("Invalid email");
       return;
     }
     if (!isValidPassword) {
-      toast.error("Invalid password (6 characters or more)");
+      toast.error(
+        "Password must be at least 5 characters, include uppercase, lowercase, number, and special character"
+      );
+      return;
+    }
+
+    if (!isValidUsername) {
+      toast.error("Invalid username");
       return;
     }
 
@@ -56,6 +71,7 @@ const ModelCreateUser = ({ show, setShow }) => {
     if (data && data.EC === 0) {
       toast.success(data.EM);
       handleClose();
+      await fetchListUsers();
     }
     if (data && data.EC !== 0) {
       toast.error(data.EM);
