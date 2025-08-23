@@ -126,6 +126,7 @@ const ModelViewUser = ({ dataUpdate, show, setShow, fetchListUsers }) => {
                 type="text"
                 className="form-control"
                 value={username}
+                disabled
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
@@ -135,6 +136,7 @@ const ModelViewUser = ({ dataUpdate, show, setShow, fetchListUsers }) => {
               <select
                 className="form-select"
                 value={role}
+                disabled
                 onChange={(e) => setRole(e.target.value)}
               >
                 <option value="USER">USER</option>
@@ -142,7 +144,7 @@ const ModelViewUser = ({ dataUpdate, show, setShow, fetchListUsers }) => {
               </select>
             </div>
             <div className="col-md-12">
-              <label className="form-label label-upload" htmlFor="labelUpload" disabled>
+              <label className="form-label label-upload" htmlFor="labelUpload" hidden>
                 <FcPlus />
                 Upload File Image
               </label>
