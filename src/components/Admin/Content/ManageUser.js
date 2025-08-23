@@ -5,11 +5,13 @@ import { useState,useEffect } from "react";
 import TableUsers from "./TableUsers";
 import { getAllUsers } from '../../../services/apiService'
 import ModelUpdateUser from "./ModelUpdateUser";
+import ModelViewUser from "./ModelViewUser";
 
 const ManageUser = (props) => {
 
   const [showModalCreateUser, setShowModalCreateUser] = useState(false);
   const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
+  const [showModalViewUser, setShowModalViewUser] = useState(false);
   const [dataUpdate, setDataUpdate] = useState({});
 
   const [listUsers, setListUsers] = useState([]);
@@ -29,6 +31,10 @@ const ManageUser = (props) => {
     setShowModalUpdateUser(true)
     setDataUpdate(user);
   };
+  const handleClickBtnView = (user) => {
+    setShowModalViewUser(true);
+    setDataUpdate(user);
+  };
 
   return (
     <div className="manage-user-container">
@@ -38,10 +44,11 @@ const ManageUser = (props) => {
           <button className="btn btn-primary d-flex align-items-center gap-1" onClick={() => setShowModalCreateUser(true)}><FcPlus />Add new Users</button>
         </div>
         <div className="table-user-container">
-          <TableUsers listUsers={listUsers} handleClickBtnUpdate={handleClickBtnUpdate} />
+          <TableUsers listUsers={listUsers} handleClickBtnUpdate={handleClickBtnUpdate} handleClickBtnView={handleClickBtnView} />
         </div>
         <ModelCreateUser show={showModalCreateUser} setShow={setShowModalCreateUser} fetchListUsers={fetchListUsers} />
         <ModelUpdateUser show={showModalUpdateUser} setShow={setShowModalUpdateUser} dataUpdate={dataUpdate}  fetchListUsers={fetchListUsers} />
+        <ModelViewUser show={showModalViewUser} setShow={setShowModalViewUser} dataUpdate={dataUpdate}  fetchListUsers={fetchListUsers} />
       </div>
     </div>
   );

@@ -2,18 +2,17 @@ import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
-import { toast } from "react-toastify";
-import { PutUpdateUser } from "../../../services/apiService";
+// import { toast } from "react-toastify";
+// import { PutViewUser } from "../../../services/apiService";
 import _ from "lodash";
 
-const ModelUpdateUser = ({ dataUpdate, show, setShow, fetchListUsers }) => {
+const ModelViewUser = ({ dataUpdate, show, setShow, fetchListUsers }) => {
   const handleClose = () => {
     setShow(false);
     setUsername("");
     setEmail("");
     setPassword("");
     setRole("USER");
-    setImage("");
     setImagePreview("");
   };
 
@@ -21,7 +20,6 @@ const ModelUpdateUser = ({ dataUpdate, show, setShow, fetchListUsers }) => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [role, setRole] = useState("USER");
-  const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
   useEffect(() => {
@@ -29,7 +27,7 @@ const ModelUpdateUser = ({ dataUpdate, show, setShow, fetchListUsers }) => {
       setEmail(dataUpdate.email);
       setUsername(dataUpdate.username);
       setRole(dataUpdate.role);
-      setImage("");
+      
       if (dataUpdate.image) {
         setImagePreview(`data:image/jpeg;base64,${dataUpdate.image}`);
       } else {
@@ -42,44 +40,43 @@ const ModelUpdateUser = ({ dataUpdate, show, setShow, fetchListUsers }) => {
   const handleUploadImage = (e) => {
     if (e.target.files && e.target.files.length > 0) {
       setImagePreview(URL.createObjectURL(e.target.files[0]));
-      setImage(e.target.files[0]);
     } else {
       //   setImagePreview(null);
     }
   };
 
-  const validateEmail = (email) => {
-    return String(email)
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
-  };
+//   const validateEmail = (email) => {
+//     return String(email)
+//       .toLowerCase()
+//       .match(
+//         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+//       );
+//   };
 
-  const handleSubmitCreateUser = async () => {
-    //Validate
-    const isValidEmail = validateEmail(email);
-    const isValidUsername = username && username.length >= 3;
-    if (!isValidEmail) {
-      toast.error("Invalid email");
-      return;
-    }
+//   const handleSubmitCreateUser = async () => {
+//     //Validate
+//     const isValidEmail = validateEmail(email);
+//     const isValidUsername = username && username.length >= 3;
+//     if (!isValidEmail) {
+//       toast.error("Invalid email");
+//       return;
+//     }
 
-    if (!isValidUsername) {
-      toast.error("Invalid username");
-      return;
-    }
+//     if (!isValidUsername) {
+//       toast.error("Invalid username");
+//       return;
+//     }
 
-    let data = await PutUpdateUser(dataUpdate.id, username, role, image);
-    if (data && data.EC === 0) {
-      toast.success(data.EM);
-      handleClose();
-      await fetchListUsers();
-    }
-    if (data && data.EC !== 0) {
-      toast.error(data.EM);
-    }
-  };
+//     let data = await PutViewUser(dataUpdate.id, username, role, image);
+//     if (data && data.EC === 0) {
+//       toast.success(data.EM);
+//       handleClose();
+//       await fetchListUsers();
+//     }
+//     if (data && data.EC !== 0) {
+//       toast.error(data.EM);
+//     }
+//   };
 
   return (
     <>
@@ -145,7 +142,7 @@ const ModelUpdateUser = ({ dataUpdate, show, setShow, fetchListUsers }) => {
               </select>
             </div>
             <div className="col-md-12">
-              <label className="form-label label-upload" htmlFor="labelUpload">
+              <label className="form-label label-upload" htmlFor="labelUpload" disabled>
                 <FcPlus />
                 Upload File Image
               </label>
@@ -157,7 +154,7 @@ const ModelUpdateUser = ({ dataUpdate, show, setShow, fetchListUsers }) => {
                 onChange={(e) => handleUploadImage(e)}
               />
             </div>
-            <div className="col-md-12 image-preview">
+            <div className="col-md-12 image-preview" disabled>
               {imagePreview ? (
                 <img src={imagePreview} alt="Preview" className="img-preview" />
               ) : (
@@ -170,13 +167,13 @@ const ModelUpdateUser = ({ dataUpdate, show, setShow, fetchListUsers }) => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={() => handleSubmitCreateUser()}>
+          {/* <Button variant="primary" onClick={() => handleSubmitCreateUser()}>
             Save
-          </Button>
+          </Button> */}
         </Modal.Footer>
       </Modal>
     </>
   );
 };
 
-export default ModelUpdateUser;
+export default ModelViewUser;
