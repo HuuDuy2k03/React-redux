@@ -1,5 +1,7 @@
 .admin-container{
     display: flex;
+    height: 100vh;  
+    overflow: hidden;
     .admin-sidebar {
         .pro-sidebar {
             height: 100vh !important;
@@ -8,9 +10,12 @@
 
     .admin-content {
       flex: 1;
+      min-height: 100vh;
     //   padding: 20px;
       background-color: #f4f4f4;
+       flex-direction: column; 
       .admin-header {
+        flex: 0 0 auto;
         display: flex;
         align-items: center;    
         gap: 20px;
@@ -19,7 +24,10 @@
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       }
       .admin-main {
-        margin-top: 20px;
+        flex: 1;
+      overflow-y: auto;  // ✅ chỉ scroll trong khu vực main khi dữ liệu quá dài
+      padding: 20px;
+      margin-top: 0;
       }
     }
 }
