@@ -1,5 +1,5 @@
 
-const TableUsers = ({ listUsers, handleClickBtnUpdate, handleClickBtnView }) => {
+const TableUsers = ({ listUsers, handleClickBtnUpdate, handleClickBtnView, handleClickBtnDelete }) => {
 
   return (
     <>
@@ -23,9 +23,9 @@ const TableUsers = ({ listUsers, handleClickBtnUpdate, handleClickBtnView }) => 
               <td>{item.email}</td>
               <td>{item.role}</td>
                 <td>
-                    <button data-id={item.id} onClick={() => handleClickBtnView(item)} className="btn btn-info mx-1">View</button>
-                    <button data-id={item.id} onClick={() => handleClickBtnUpdate(item)} className="btn btn-warning mx-2">Edit</button>
-                    <button data-id={item.id} className="btn btn-danger mx-1">Delete</button>
+                    <button onClick={() => handleClickBtnView(item)} className="btn btn-info mx-1">View</button>
+                    <button onClick={() => handleClickBtnUpdate(item)} className="btn btn-warning mx-2">Edit</button>
+                    <button onClick={() => handleClickBtnDelete(item)} className="btn btn-danger mx-1">Delete</button>
                 </td>
             </tr>
             )

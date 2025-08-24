@@ -92,7 +92,7 @@ const ModelViewUser = ({ dataUpdate, show, setShow, fetchListUsers }) => {
         className="modal-add-user"
       >
         <Modal.Header closeButton>
-          <Modal.Title>Update user</Modal.Title>
+          <Modal.Title>View user</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form className="row g-3">
