@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { PutUpdateUser } from "../../../services/apiService";
 import _ from "lodash";
 
-const ModelUpdateUser = ({ dataUpdate, show, setShow, fetchListUsers }) => {
+const ModelUpdateUser = ({ dataUpdate, show, setShow, fetchListUsers ,fetchListUsersPaginate, currentPage,setCurrentPage }) => {
   const handleClose = () => {
     setShow(false);
     setUsername("");
@@ -74,7 +74,9 @@ const ModelUpdateUser = ({ dataUpdate, show, setShow, fetchListUsers }) => {
     if (data && data.EC === 0) {
       toast.success(data.EM);
       handleClose();
-      await fetchListUsers();
+      // await fetchListUsers();
+      // setCurrentPage(1);
+      await fetchListUsersPaginate(currentPage);
     }
     if (data && data.EC !== 0) {
       toast.error(data.EM);

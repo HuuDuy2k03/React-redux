@@ -5,7 +5,7 @@ import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
 import { postCreateNewUser } from "../../../services/apiService";
 
-const ModelCreateUser = ({ show, setShow, fetchListUsers }) => {
+const ModelCreateUser = ({ show, setShow, fetchListUsers ,fetchListUsersPaginate, currentPage,setCurrentPage }) => {
   const handleClose = () => {
     setShow(false);
     setUsername("");
@@ -71,7 +71,9 @@ const ModelCreateUser = ({ show, setShow, fetchListUsers }) => {
     if (data && data.EC === 0) {
       toast.success(data.EM);
       handleClose();
-      await fetchListUsers();
+      // await fetchListUsers();
+      setCurrentPage(1);
+      await fetchListUsersPaginate(1);
     }
     if (data && data.EC !== 0) {
       toast.error(data.EM);

@@ -12,8 +12,9 @@ import TableUsersPaginate from "./TableUserPaginate";
 const ManageUser = (props) => {
 
   const LIMIT_USERS = 6;
-
   const [pageCount, setPageCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+
   const [showModalCreateUser, setShowModalCreateUser] = useState(false);
   const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
   const [showModalViewUser, setShowModalViewUser] = useState(false);
@@ -64,12 +65,12 @@ const ManageUser = (props) => {
         </div>
         <div className="table-user-container">
           {/* <TableUsers listUsers={listUsers} handleClickBtnUpdate={handleClickBtnUpdate} handleClickBtnView={handleClickBtnView} handleClickBtnDelete={handleClickBtnDelete} /> */}
-          <TableUsersPaginate listUsers={listUsers} handleClickBtnUpdate={handleClickBtnUpdate} handleClickBtnView={handleClickBtnView} handleClickBtnDelete={handleClickBtnDelete} fetchListUsersPaginate={fetchListUsersPaginate} pageCount={pageCount} />
+          <TableUsersPaginate listUsers={listUsers} handleClickBtnUpdate={handleClickBtnUpdate} handleClickBtnView={handleClickBtnView} handleClickBtnDelete={handleClickBtnDelete} fetchListUsersPaginate={fetchListUsersPaginate} pageCount={pageCount} currentPage={currentPage} setCurrentPage={setCurrentPage} />
         </div>
-        <ModelCreateUser show={showModalCreateUser} setShow={setShowModalCreateUser} fetchListUsers={fetchListUsers} />
-        <ModelUpdateUser show={showModalUpdateUser} setShow={setShowModalUpdateUser} dataUpdate={dataUpdate}  fetchListUsers={fetchListUsers} />
-        <ModelViewUser show={showModalViewUser} setShow={setShowModalViewUser} dataUpdate={dataUpdate} />
-        <ModelDeleteUser show={showModalDeleteUser} setShow={setShowModalDeleteUser} dataUpdate={dataUpdate} fetchListUsers={fetchListUsers} />
+        <ModelCreateUser show={showModalCreateUser} setShow={setShowModalCreateUser} fetchListUsers={fetchListUsers} fetchListUsersPaginate={fetchListUsersPaginate} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
+        <ModelUpdateUser show={showModalUpdateUser} setShow={setShowModalUpdateUser} dataUpdate={dataUpdate}  fetchListUsers={fetchListUsers} fetchListUsersPaginate={fetchListUsersPaginate} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
+        <ModelViewUser show={showModalViewUser} setShow={setShowModalViewUser} dataUpdate={dataUpdate} fetchListUsersPaginate={fetchListUsersPaginate}/>
+        <ModelDeleteUser show={showModalDeleteUser} setShow={setShowModalDeleteUser} dataUpdate={dataUpdate} fetchListUsers={fetchListUsers} fetchListUsersPaginate={fetchListUsersPaginate} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
       </div>
     </div>
   );
