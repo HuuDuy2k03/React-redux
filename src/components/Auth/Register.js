@@ -1,12 +1,13 @@
-import './Login.scss';
+import './Register.scss';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { postLogin } from '../../services/apiService';
+import { postRegister } from '../../services/apiService';
 import { toast } from 'react-toastify';
 
-const Login = () => {
+const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('');
 
     const navigate = useNavigate();
 
@@ -25,7 +26,7 @@ const Login = () => {
             pw.length > 4;
     }
 
-    const handleLogin = async () => {
+    const handleRegister = async () => {
         //validate
         const isValidEmail = validateEmail(email);
         const isValidPassword = validatePassword(password);
@@ -39,39 +40,43 @@ const Login = () => {
         );
         return;
         }
+        
 
         //submit api
-        let data = await postLogin(email, password);
+        let data = await postRegister(email, password, username);
         if (data && data.EC === 0) {
             toast.success(data.EM);
-            navigate('/');
+            navigate('/login');
         }
         if (data && data.EC !== 0) {
             toast.error(data.EM);
         }
     };
 
-  return (
-    <div className="login-container">
-        <div className="header"><span>Don't have an account yet?</span><button onClick={() => navigate('/register')} className='btn-signup'>Sign up</button></div>
+return (
+    <div className="register-container">
+        <div className="header"><span>Already have an account?</span><button onClick={() => navigate('/login')} className='btn-signup'>Log in</button></div>
         <div className="title col-4 mx-auto">QWQ</div>
-        <div className="welcome col-4 mx-auto">Hello, who's this</div>
+        <div className="welcome col-4 mx-auto">Start your journey?</div>
         <div className="content-form col-4 mx-auto">
             <div className='form-group'>
-                <label>Email</label>
+                <label>Email(*)</label>
                 <input type="email" id="email" className='form-control' value={email} onChange={(e) => setEmail(e.target.value)} />
             </div>
             <div className='form-group'>
-                <label>Password</label>
+                <label>Password(*)</label>
                 <input type="password" id="password" className='form-control' value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
-            <span className='forgot-password'>Forgot your password?</span>
+            <div className='form-group'>
+                <label>Username</label>
+                <input type="text" id="username" className='form-control' value={username} onChange={(e) => setUsername(e.target.value)} />
+            </div>
             <div>
-                <button className='btn-login btn'onClick={() => handleLogin()}>Log in to QWQ</button>
+                <button className='btn-login btn'onClick={() => handleRegister()}>Create an account</button>
             </div>
             <div className='text-center'><span className='back' onClick={()=> { navigate('/')}}>&#60;&#60; Go to Homepage</span></div>
         </div>
     </div>
   );
 };
-export default Login;
+export default Register;
