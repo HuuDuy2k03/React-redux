@@ -1,5 +1,6 @@
 import axios from "../utilts/axiosCustomize";
 
+// manager user
 const postCreateNewUser = async (email, password, username, role, image) => {
     const data = new FormData();
     data.append("email", email);
@@ -31,4 +32,10 @@ const getAllUsersPaginate = async (page, limit) => {
     return axios.get(`api/v1/participant?page=${page}&limit=${limit}`);
 };
 
-export { postCreateNewUser, getAllUsers, PutUpdateUser, deleteUser, getAllUsersPaginate };
+//login
+
+const postLogin = async (userEmail, userPassword) => {
+    return axios.post("api/v1/login", { email: userEmail, password: userPassword });
+};
+
+export { postCreateNewUser, getAllUsers, PutUpdateUser, deleteUser, getAllUsersPaginate, postLogin };

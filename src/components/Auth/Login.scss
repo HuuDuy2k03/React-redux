@@ -2,6 +2,18 @@
     .header{
         height: 45px;
         text-align: right;
+        padding: 5px 100px 0 100px;
+        button{
+            padding: 3px 15px;
+            margin-left: 15px;
+            border-radius: 5px;
+            background: white;
+            border: 1px solid black;
+        }
+        &:hover{
+            cursor: pointer;
+            opacity: 0.8;
+        }
     }
     .title{
         font-size: 25px;
@@ -31,9 +43,10 @@
             color: white;
             background-color: black;
         }
-        &:hover{
+
+        .back{
             cursor: pointer;
-            opacity: 0.8;
+            text-decoration: underline;
         }
     }
 }
