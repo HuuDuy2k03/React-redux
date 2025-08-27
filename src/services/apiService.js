@@ -35,7 +35,7 @@ const getAllUsersPaginate = async (page, limit) => {
 //login
 
 const postLogin = async (userEmail, userPassword) => {
-    return axios.post("api/v1/login", { email: userEmail, password: userPassword });
+    return axios.post("api/v1/login", { email: userEmail, password: userPassword, delay: 5000 });
 };
 
 const postRegister = async (userEmail, userPassword, userName) => {

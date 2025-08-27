@@ -5,10 +5,13 @@ import { postLogin } from "../../services/apiService";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { doLogin } from "../../redux/action/userAction";
+import { FaCog } from "react-icons/fa";
+import { set } from "lodash";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -33,15 +36,18 @@ const Login = () => {
       return;
     }
 
+    setIsLoading(true);
     //submit api
     let data = await postLogin(email, password);
     if (data && data.EC === 0) {
       dispatch(doLogin(data));
       toast.success(data.EM);
+      setIsLoading(false);
       navigate("/");
     }
     if (data && data.EC !== 0) {
       toast.error(data.EM);
+      setIsLoading(false);
     }
   };
 
@@ -89,8 +95,15 @@ const Login = () => {
           <span className="forgot-password">Forgot your password?</span>
 
           <div>
-            <button type="submit" className="btn-login btn">
-              Log in to QWQ
+            <button type="submit" className="btn-login btn" disabled={isLoading}>
+              {isLoading ? (
+                <>
+                  <FaCog className="loader-icon" />
+                  <span>Logging in...</span>
+                </>
+              ) : (
+                <span>Log in to QWQ</span>
+              )}
             </button>
           </div>
 
