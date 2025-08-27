@@ -40,6 +40,10 @@ const ManageUser = (props) => {
     if (data.EC === 0) {
       setListUsers(data.DT.users);
       setPageCount(data.DT.totalPages);
+      // reset currentPage nếu > totalPages
+      if (page > data.DT.totalPages) {
+        setCurrentPage(1);
+      }
     }
   };
 
