@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { doLogin } from "../../redux/action/userAction";
 import { FaCog } from "react-icons/fa";
-import { set } from "lodash";
 
 const Login = () => {
   const [email, setEmail] = useState("");
