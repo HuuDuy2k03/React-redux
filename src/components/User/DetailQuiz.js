@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getDataQuiz } from "../../services/apiService";
+import _ from "lodash";
 
 const DetailQuiz = () => {
     const params = useParams();
@@ -10,7 +11,23 @@ const DetailQuiz = () => {
       const fetchQuestions = async () => {
         const res = await getDataQuiz(params.id);
         if (res && res.EC === 0) {
-          setQuiz(res.DT);
+          let raw = res.DT;
+          let data = _.chain(raw)
+          .groupBy("id")
+          .map((value, key) =>{
+            let answers = [];
+            let questionDescription, image = null;
+            value.forEach((item,idx) => {
+              if(idx === 0) {
+                questionDescription = item.description;
+                image = item.image;
+              }
+              answers.push(item.answers);
+            });
+            return  {questionId: key, answers, questionDescription, image};
+          })
+          .value();
+          setQuiz(data);
         }
       };
       fetchQuestions();
