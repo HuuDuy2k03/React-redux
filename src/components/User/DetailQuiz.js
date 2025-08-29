@@ -3,15 +3,19 @@ import { useParams, useLocation } from "react-router-dom";
 import { getDataQuiz } from "../../services/apiService";
 import _ from "lodash";
 import "./DetailQuiz.scss";
+import Question from "./Question";
 
 const DetailQuiz = () => {
     const params = useParams();
     const location = useLocation();
-    const [quiz, setQuiz] = useState(null);
+    const quizId = params.id;
+
+    const [dataQuiz, setDataQuiz] = useState([]);
+    const [curQuestion, setCurQuestion] = useState(0);
 
     useEffect(() => {
       const fetchQuestions = async () => {
-        const res = await getDataQuiz(params.id);
+        const res = await getDataQuiz(quizId);
         if (res && res.EC === 0) {
           let raw = res.DT;
           let data = _.chain(raw)
@@ -29,30 +33,34 @@ const DetailQuiz = () => {
             return  {questionId: key, answers, questionDescription, image};
           })
           .value();
-          setQuiz(data);
+          setDataQuiz(data);
         }
       };
       fetchQuestions();
-    }, [params.id]);
+    }, [quizId]);
+
+    const handlePrev = () => {
+      if (curQuestion > 0) {
+        setCurQuestion(curQuestion - 1);
+      }
+    };
+
+    const handleNext = () => {
+      if (curQuestion + 1 < dataQuiz.length) {
+        setCurQuestion(curQuestion + 1);
+      }
+    };
 
   return (
     <div className="detail-quiz-container container">
       <div className="left-content">
-        <div className="title">Quiz {params.id} : {location?.state?.quizTitle}</div>
-        <div className="q-body">
-          <img alt="Quiz" />
-        </div>
+        <div className="title">Quiz {quizId} : {location?.state?.quizTitle}</div>
         <div className="q-content">
-          <div className="question"> Question 1: how to question?</div>
-          <div className="answers">
-            <div>A</div>
-            <div>B</div>
-            <div>C</div>
-          </div>
+          <Question curQuestion={curQuestion} data={dataQuiz && dataQuiz.length > 0 ? dataQuiz[curQuestion] : []} />
         </div>
         <div className="footer">
-          <button className="btn btn-secondary">Prev</button>
-          <button className="btn btn-primary">Next</button>
+          <button className="btn btn-secondary" onClick={() => handlePrev()}>Prev</button>
+          <button className="btn btn-primary" onClick={() => handleNext()}>Next</button>
         </div>
       </div>
       <div className="right-content">

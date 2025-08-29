@@ -11,33 +11,21 @@
             font-size: 30px;
             margin-bottom: 20px;
         }
-        .q-body{
-            img{
-                max-width: 100%;
-                height: auto;
-            }
-        }
         .q-content{
             margin: 20px 0;
+            .q-image{
+                display: flex;
+                justify-content: center;
+                margin-bottom: 20px;
+                img{
+                    width: auto;
+                    height: 200px;
+                }
+            }
             .question{
                 font-weight: bold;
                 font-size: 20px;
                 margin-bottom: 15px;
-            }
-            .answers{
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-                width: 50%;
-                div{
-                    padding: 10px;
-                    border: 1px solid #ccc;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    &:hover{
-                        background-color: #f0f0f0;
-                    }
-                }
             }
         }
         .footer{
