@@ -28,6 +28,7 @@ const DetailQuiz = () => {
                 questionDescription = item.description;
                 image = item.image;
               }
+              item.answers.isSelected = false;
               answers.push(item.answers);
             });
             return  {questionId: key, answers, questionDescription, image};
@@ -38,6 +39,8 @@ const DetailQuiz = () => {
       };
       fetchQuestions();
     }, [quizId]);
+    
+    console.log(dataQuiz)
 
     const handlePrev = () => {
       if (curQuestion > 0) {
@@ -51,16 +54,31 @@ const DetailQuiz = () => {
       }
     };
 
+    const handleCheckboxChange = (aId, qId) => {
+        // Handle checkbox change
+        let dataQuizClone = _.cloneDeep(dataQuiz);
+        let question = dataQuizClone.find(item => +item.questionId === +qId);
+        if (question && question.answers && question.answers.length > 0) {
+          let answer = question.answers.find(item => item.id === +aId);
+          if (answer) {
+            answer.isSelected = !answer.isSelected;
+          }
+        }
+        setDataQuiz(dataQuizClone);
+    };
+
   return (
     <div className="detail-quiz-container container">
       <div className="left-content">
         <div className="title">Quiz {quizId} : {location?.state?.quizTitle}</div>
+        <hr />
         <div className="q-content">
-          <Question curQuestion={curQuestion} data={dataQuiz && dataQuiz.length > 0 ? dataQuiz[curQuestion] : []} />
+          <Question handleCheckboxChange={handleCheckboxChange} curQuestion={curQuestion} data={dataQuiz && dataQuiz.length > 0 ? dataQuiz[curQuestion] : []} />
         </div>
         <div className="footer">
           <button className="btn btn-secondary" onClick={() => handlePrev()}>Prev</button>
           <button className="btn btn-primary" onClick={() => handleNext()}>Next</button>
+          <button className="btn btn-warning" onClick={() => handleNext()}>Finish</button>
         </div>
       </div>
       <div className="right-content">

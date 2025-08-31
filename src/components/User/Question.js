@@ -1,17 +1,24 @@
 import _ from "lodash";
 
-const Question = ({ data, curQuestion }) => {
+const Question = ({ data, curQuestion, handleCheckboxChange }) => {
     if (_.isEmpty(data)) {
         return null;
     }
 
-  return (
+    const handleCheckbox = (event, aId, qId) => {
+        // Handle checkbox change
+        handleCheckboxChange(aId, qId);
+    };
+
+    return (
     <>
-        {data.image && (
+        {data.image ? (
             <div className="q-image">
                 <img alt="" src={`data:image/png;base64,${data.image}`} />
             </div>
-        )}
+        ) : <div className="q-image">
+
+            </div>}
         <div className="question"> Question {curQuestion + 1}: {data.questionDescription}</div>
           <div className="answers">
             {data.answers && data.answers.length > 0 && 
@@ -22,6 +29,8 @@ const Question = ({ data, curQuestion }) => {
                                 <input 
                                     className="form-check-input" 
                                     type="checkbox"
+                                    checked={answer.isSelected}
+                                    onChange={(e) => handleCheckbox(e, answer.id, data.questionId)}
                                 /><label className="form-check-label">{answer.description}</label>
                             </div>
                         </div>

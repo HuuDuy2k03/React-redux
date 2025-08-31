@@ -5,38 +5,47 @@
     .left-content{
         flex: 3;
         padding: 20px;
-        border: 1px solid #ee2e2e;
+        border: 2px solid #ccc;
+        border-radius: 5px;
         .title{
             font-weight: bold;
             font-size: 30px;
             margin-bottom: 20px;
         }
         .q-content{
-            margin: 20px 0;
+            text-align: center;
             .q-image{
                 display: flex;
                 justify-content: center;
                 margin-bottom: 20px;
                 img{
                     width: auto;
-                    height: 200px;
+                    height: 100px;
                 }
             }
             .question{
                 font-weight: bold;
                 font-size: 20px;
-                margin-bottom: 15px;
+                padding: 20px 0;
+            }
+            .answers{
+                .answer{
+                    text-align: left;
+                    padding-left: 50px;
+                }
             }
         }
         .footer{
+            margin-top: 20px;
             display: flex;
             gap: 15px;
             justify-content: center;
         }
     }
     .right-content{
+        border-radius: 5px;
         flex: 1;
         padding: 20px;
-        border: 1px solid #211bc9;
+        border: 2px solid #ccc;
     }
 }
