@@ -39,8 +39,6 @@ const DetailQuiz = () => {
       };
       fetchQuestions();
     }, [quizId]);
-    
-    console.log(dataQuiz)
 
     const handlePrev = () => {
       if (curQuestion > 0) {
@@ -66,6 +64,20 @@ const DetailQuiz = () => {
         }
         setDataQuiz(dataQuizClone);
     };
+    
+    const handleFinishQuiz = () => {
+      if ( dataQuiz && dataQuiz.length > 0) {
+        // Submit the quiz data
+        let payload = {
+        quizId: +quizId,
+        answers: dataQuiz.map(item => ({
+          questionId: +item.questionId,
+          userAnswersId: item.answers.filter(ans => ans.isSelected === true).map(ans => ans.id)
+        }))
+      };
+      console.log("payload", payload);
+    }
+  };
 
   return (
     <div className="detail-quiz-container container">
@@ -78,7 +90,7 @@ const DetailQuiz = () => {
         <div className="footer">
           <button className="btn btn-secondary" onClick={() => handlePrev()}>Prev</button>
           <button className="btn btn-primary" onClick={() => handleNext()}>Next</button>
-          <button className="btn btn-warning" onClick={() => handleNext()}>Finish</button>
+          <button className="btn btn-warning" onClick={() => handleFinishQuiz()}>Finish</button>
         </div>
       </div>
       <div className="right-content">
