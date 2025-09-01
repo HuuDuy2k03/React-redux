@@ -13,10 +13,12 @@ import { SiReactivex } from "react-icons/si";
 import { MdDashboard } from "react-icons/md";
 import sidebarBg from '../../assets/bg2.jpg';
 import "./SideBar.scss"; // Assuming you have some styles for the SideBar component
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
+  const navigate = useNavigate();
+
   return (
     <>
       <ProSidebar
@@ -43,8 +45,7 @@ const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
               gap: "5px",
             }}
           >
-            <SiReactivex size={"3em"}  color={"#61DAFB"}/>
-            QWQ
+            <SiReactivex size={"3em"}  color={"#61DAFB"}/> <span onClick={() => navigate("/")} >QWQ</span>
           </div>
         </SidebarHeader>
 
