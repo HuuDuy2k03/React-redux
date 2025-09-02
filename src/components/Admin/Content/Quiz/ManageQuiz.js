@@ -1,6 +1,9 @@
 import './ManageQuiz.scss';
 import Select from 'react-select';
 import { useState } from 'react';
+import {postCreateNewQuiz} from '../../../../services/apiService';
+import { toast } from 'react-toastify';
+import { set } from 'lodash';
 
 const options = [
   { value: 'EASY', label: 'EASY' },
@@ -16,10 +19,27 @@ const ManageQuiz = () => {
     const [image, setImage] = useState(null);
 
     const handleChangeFile = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            setImage(URL.createObjectURL(file));
+        if (event.target && event.target.files && event.target.files[0]) {
+            setImage(event.target.files[0]);
         }
+    };
+
+    const handleSubmitQuiz = async () => {
+      // validate
+      if(!name || !description) {
+        toast.error("Please fill in all fields");
+        return;
+      }
+      let res = await postCreateNewQuiz(description, name, type?.value, image);
+      if(res && res.EC === 0) {
+        toast.success(res.EM);
+        setName('');
+        setDescription('');
+        setType('EASY');
+        setImage(null);
+      }else {
+        toast.error(res.EM);
+      }
     };
 
   return (
@@ -39,11 +59,13 @@ const ManageQuiz = () => {
                 <input type="text" className="form-control" placeholder='Quiz Description' value={description} onChange={(e) => setDescription(e.target.value)} />
                 <label>Description</label>
             </div> 
-            <div className='my-3'><Select  options={options} placeholder="Select Type" value={type} onChange={(selectedOption) => setType(selectedOption.value)} /></div>
+            <div className='my-3'><Select defaultValue={type} onChange={setType} options={options} placeholder="Select Type"  /></div>
             <div className="more-action">
                 <label className='form-label'> Upload File</label>
                 <input type="file" className="form-control" onChange={(e) => handleChangeFile(e)} />
-                <button className="btn btn-primary mt-3">Add Quiz</button>
+            </div>
+            <div className='mt-3'>
+              <button onClick={() => handleSubmitQuiz()} className="btn btn-primary ">Save</button>
             </div>
         </fieldset>
       </div>
