@@ -37,7 +37,7 @@ const TableQuiz = () => {
                       <td>{quiz.name}</td>
                       <td>{quiz.description}</td>
                       <td>{quiz.difficulty}</td>
-                      <td>
+                      <td className="d-flex gap-2">
                         <button className="btn btn-primary">Edit</button>
                         <button className="btn btn-danger">Delete</button>
                       </td>
@@ -46,7 +46,7 @@ const TableQuiz = () => {
 
               })
             ) : (
-              <tr className="d-flex gap-3">
+              <tr>
                 <td colSpan="5" className="text-center">No quizzes found</td>
               </tr>
             )}

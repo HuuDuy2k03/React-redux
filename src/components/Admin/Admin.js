@@ -6,6 +6,15 @@ import { Outlet } from "react-router-dom";
 
 const Admin = (props) => {
   const [collapsed, setCollapsed] = useState(false);
+
+  const handleToggleSidebar = () => {
+    setCollapsed(!collapsed);
+    const a = document.querySelector('.admin-content');
+    const b = document.querySelector('.admin-header');
+    a.style.marginLeft = collapsed ? '270px' : '80px';
+    b.style.left = collapsed ? '270px' : '80px';
+  };
+
   return (
     <div className="admin-container">
       <div className="admin-sidebar">
@@ -15,7 +24,7 @@ const Admin = (props) => {
       </div>
       <div className="admin-content">
         <div className="admin-header">
-          <FaBars onClick={() => setCollapsed(!collapsed)} />
+          <FaBars onClick={handleToggleSidebar} />
           Admin Component
         </div>
         <div className="admin-main">

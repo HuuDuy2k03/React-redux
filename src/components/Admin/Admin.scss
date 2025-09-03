@@ -1,14 +1,17 @@
 .admin-container{
     display: flex;
-    height: 100vh;  
+    // height: 100vh;  
     overflow: hidden;
     .admin-sidebar {
         .pro-sidebar {
             height: 100vh !important;
+            position: fixed;
+            top: 0;
         }
     }
 
     .admin-content {
+      margin-left: 270px; // Đảm bảo nội dung không bị sidebar che khuất
       flex: 1;
       min-height: 100vh;
     //   padding: 20px;
@@ -22,12 +25,17 @@
         padding: 10px;
         background-color: #fff;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        position: fixed;
+        top: 0;
+        left: 270px;
+        right: 0;
+        z-index: 1000;
       }
       .admin-main {
         flex: 1;
       overflow-y: auto;  // ✅ chỉ scroll trong khu vực main khi dữ liệu quá dài
-      padding: 20px;
-      margin-top: 0;
+      // padding: 20px;
+      margin-top: 44px;
       }
     }
 }
