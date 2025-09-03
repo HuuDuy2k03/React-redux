@@ -16,8 +16,10 @@ const ManageQuiz = () => {
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [type, setType] = useState('EASY');
+    const [type, setType] = useState(options[0]);
     const [image, setImage] = useState(null);
+
+    const [reload, setReload] = useState(false);
 
     const handleChangeFile = (event) => {
         if (event.target && event.target.files && event.target.files[0]) {
@@ -36,8 +38,10 @@ const ManageQuiz = () => {
         toast.success(res.EM);
         setName('');
         setDescription('');
-        setType('EASY');
+        setType(options[0]);
         setImage(null);
+
+        setReload(!reload);
       }else {
         toast.error(res.EM);
       }
@@ -74,10 +78,10 @@ const ManageQuiz = () => {
         </Accordion.Item>
       </Accordion>
       <div className="list-detail">
-        <TableQuiz />
+        <TableQuiz fetchTrigger={reload} />
       </div>
     </div>
-  )
+  );
 };
 
 export default ManageQuiz;

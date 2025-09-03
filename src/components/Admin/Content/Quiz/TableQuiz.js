@@ -1,19 +1,36 @@
 import { useState, useEffect } from "react";
 import { getAllQuizzesForAdmin } from "../../../../services/apiService";
+import ModelUpdateQuiz from "./ModelUpdateQuiz";
+import ModalDeleteQuiz from "./ModelDeleteQuiz";
 
-const TableQuiz = () => {
+const TableQuiz = (({fetchTrigger}) => {
 
     const [listQuiz, setListQuiz] = useState([]);
+    const [isShowModalUpdate, setIsShowModalUpdate] = useState(false);
+    const [isShowModalDelete, setIsShowModalDelete] = useState(false);
+    const [dataUpdate, setDataUpdate] = useState({});
+    const [dataDelete, setDataDelete] = useState({});
 
-    useEffect(() => {
-      const fetchQuizzes = async () => {
+    const fetchQuiz = async () => {
         let res = await getAllQuizzesForAdmin();
         if (res && res.EC === 0) {
           setListQuiz(res.DT);
         }
       };
-      fetchQuizzes();
-    }, []);
+    
+    useEffect(() => {
+      fetchQuiz();
+    }, [fetchTrigger]);// mỗi lần fetchTrigger thay đổi thì load lại
+
+    const handleUpdate = (quiz) => {
+      setDataUpdate(quiz);
+      setIsShowModalUpdate(true);
+    };
+
+    const handleDelete = (quiz) => {
+      setDataDelete(quiz);
+      setIsShowModalDelete(true);
+    };
 
   return (
     <>
@@ -38,8 +55,8 @@ const TableQuiz = () => {
                       <td>{quiz.description}</td>
                       <td>{quiz.difficulty}</td>
                       <td className="d-flex gap-2">
-                        <button className="btn btn-primary">Edit</button>
-                        <button className="btn btn-danger">Delete</button>
+                        <button className="btn btn-primary" onClick={() => handleUpdate(quiz)}>Edit</button>
+                        <button className="btn btn-danger" onClick={() => handleDelete(quiz)}>Delete</button>
                       </td>
                     </tr>
                 )
@@ -52,8 +69,23 @@ const TableQuiz = () => {
             )}
         </tbody>
       </table>
+      <ModelUpdateQuiz
+        dataUpdate={dataUpdate}
+        show={isShowModalUpdate}
+        setShow={setIsShowModalUpdate}
+        setDataUpdate={setDataUpdate}
+        fetchQuiz={fetchQuiz}
+      />
+      <ModalDeleteQuiz
+        dataDelete={dataDelete}
+        show={isShowModalDelete}
+        setShow={setIsShowModalDelete}
+        setDataDelete={setDataDelete}
+        fetchQuiz={fetchQuiz}
+      />  
     </>
   );
-};
+});
+
 
 export default TableQuiz;
