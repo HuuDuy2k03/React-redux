@@ -19,19 +19,20 @@
         flex: 1;
         padding: 15px;
         .label-upload {
-        height: 30px;
-            border: 1px solid #181616;
-            border-radius: 5px;
-            padding: 0 10px;
             margin-right: 5px;
             cursor: pointer;
+            color: blue;
+            font-size: 25px;
+            &:hover {
+                color: darkblue;
+            }
         }
     }
   }
 
   .answer-content {
     margin-top: 15px;
-    padding-left: 15px;
+    padding-left: 25px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -61,11 +62,17 @@
       font-size: 20px;
       color: green;
       cursor: pointer;
+      &:hover {
+        color: darkgreen;
+      }
     }
     .icon-remove {
       font-size: 20px;
       color: red;
       cursor: pointer;
+      &:hover {
+        color: darkred;
+      }
     }
   }
 }
