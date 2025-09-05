@@ -8,6 +8,7 @@ import { AiOutlineMinus } from "react-icons/ai";
 import { RiImageAddFill } from "react-icons/ri";
 import { v4 as uuidv4 } from "uuid";
 import _ from "lodash";
+import Lightbox from "yet-another-react-lightbox";
 
 const Questions = () => {
   const options = [
@@ -17,6 +18,8 @@ const Questions = () => {
   ];
 
   const [selectedQuiz, setSelectedQuiz] = useState({});
+  const [open, setOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const [questions, setQuestions] = useState([
     {
@@ -133,7 +136,9 @@ const Questions = () => {
                       <RiImageAddFill className="label-upload" />
                     </label>
                     <input id={`upload-file-${question.id}`} type="file" hidden onChange={(event) => handleOnChangeFileQuestion(question.id, event)} />
-                    <span>{question.imageFile ? '1' : "0"} file(s) selected: {question.imageName ? question.imageName : ""}</span>
+                    <span onClick={() => {if(question.imageFile) {setSelectedImage(question.imageFile); setOpen(true)}}}>{question.imageFile ? "1" : "0"} file(s) selected:{" "}
+                      {question.imageName || ""}
+                    </span>
                   </div>
                   <div className="btn-add">
                     <span onClick={() => handleAddRemoveQuestion("ADD", null)}>
@@ -189,6 +194,22 @@ const Questions = () => {
           </div>
         )}
       </div>
+      <Lightbox
+        open={open}
+        close={() => {
+          setOpen(false);
+          setSelectedImage(null);
+        }}
+        slides={
+          selectedImage
+            ? [{ src: URL.createObjectURL(selectedImage) }]
+            : []
+        }
+        render={{
+          buttonPrev: () => null,
+          buttonNext: () => null,
+        }}
+      />
     </div>
   );
 };
