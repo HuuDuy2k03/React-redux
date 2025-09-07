@@ -10,10 +10,11 @@ import { v4 as uuidv4 } from "uuid";
 import _ from "lodash";
 import Lightbox from "yet-another-react-lightbox";
 import { getAllQuizzesForAdmin, postCreateNewQuestionForQuiz, postCreateNewAnswerForQuestion } from "../../../../services/apiService";
+import { toast } from "react-toastify";
 
 const Questions = () => {
 
-  const [questions, setQuestions] = useState([
+  const initQuestion = [
     {
       id: uuidv4(),
       description: "",
@@ -23,7 +24,8 @@ const Questions = () => {
         { id: uuidv4(), description: "", isCorrect: false },
       ],
     },
-  ]);
+  ]
+  const [questions, setQuestions] = useState(initQuestion);
 
   const [listQuiz, setListQuiz] = useState([]);
   const [selectedQuiz, setSelectedQuiz] = useState({});
@@ -113,8 +115,47 @@ const Questions = () => {
 
   const handleSubmitQuestionsForQuiz = async () => {
     // todo
-    // validate data
+    if(_.isEmpty(selectedQuiz)){
+      toast.error("Please choose a Quiz")
+      return;
+    }
 
+    // validate Question
+    let isValidQ = true;
+    let indexQ1 = 0
+    for(let i=0; i<questions.length; i++){
+      if(!questions[i].description){
+        isValidQ = false;
+        indexQ1 = i;
+        break;
+      }
+      
+      if(isValidQ === false) break;
+    }
+    if(!isValidQ){
+      toast.error(`Not empty description for Question ${indexQ1 + 1}`);
+      return;
+    }
+
+    // validate answer
+    let isValidAnswer = true;
+    let indexQ = 0, indexA = 0;
+    for(let i=0; i<questions.length; i++){
+      
+      for(let j=0; j<questions[i].answers.length; j++){
+        if(!questions[i].answers[j].description){
+          isValidAnswer = false;
+          indexA = j;
+          break;
+        }
+      }
+      indexQ = i;
+      if(isValidAnswer === false) break;
+    }
+    if(!isValidAnswer){
+      toast.error(`Not empty Answer ${indexA + 1} at Question ${indexQ + 1}`);
+      return;
+    }
 
     // submit question
     await Promise.all(questions.map(async (question) => {
@@ -124,6 +165,9 @@ const Questions = () => {
           await postCreateNewAnswerForQuestion(answer.description, answer.isCorrect, q.DT.id);
       }));
     }));
+
+    toast.success('Create questions and answer succeed!');
+    setQuestions(initQuestion);
   }
 
   return (
