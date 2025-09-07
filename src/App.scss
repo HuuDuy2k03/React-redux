@@ -14,8 +14,15 @@ body {
 }
 
 .app-container {
-
+  padding-top: 70px;
   .Header-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    // background-color: #fff; // để tránh trong suốt
+    // border-bottom: 1px solid #ddd; // optional
 
     .navbar {
       z-index: 10;
@@ -46,7 +53,6 @@ body {
     }
   }
   .Main-container {
-
     .homepage-container{
 
       .homepage-content {
