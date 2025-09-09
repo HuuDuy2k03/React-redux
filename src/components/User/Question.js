@@ -1,6 +1,12 @@
 import _ from "lodash";
+import { useState } from "react";
+import Lightbox from "yet-another-react-lightbox";
 
 const Question = ({ data, curQuestion, handleCheckboxChange }) => {
+    
+    const [open, setOpen] = useState(false);
+    const [selectedImage, setSelectedImage] = useState(null);
+    
     if (_.isEmpty(data)) {
         return null;
     }
@@ -14,7 +20,21 @@ const Question = ({ data, curQuestion, handleCheckboxChange }) => {
     <>
         {data.image ? (
             <div className="q-image">
-                <img alt="" src={`data:image/png;base64,${data.image}`} />
+                <img style={{cursor: "pointer"}} alt="" src={`data:image/png;base64,${data.image}`} onClick={() => setOpen(true)}/>
+                <Lightbox
+                    open={open}
+                    close={() => {
+                    setOpen(false);
+                    setSelectedImage(null);
+                    }}
+                    slides={
+                    [{ src: `data:image/png;base64,${data.image}` }]
+                    }
+                    render={{
+                    buttonPrev: () => null,
+                    buttonNext: () => null,
+                    }}
+                />
             </div>
         ) : <div className="q-image">
 
