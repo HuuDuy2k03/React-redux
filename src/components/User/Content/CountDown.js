@@ -1,37 +1,42 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const CountDown = (onTimeUp) => {
-    const [count, setCount] = useState(5);
+const CountDown = ({ onTimeUp }) => {
+  const [count, setCount] = useState(500);
+  const onTimeUpRef = useRef(onTimeUp);
 
-    const toHHMMSS = (secs) => {
-        const sec_num = parseInt(secs,10)
-        const hours = Math.floor(sec_num/3600)
-        const minutes = Math.floor(sec_num/60) % 60
-        const seconds = sec_num % 60
+  // luôn cập nhật ref mỗi khi prop thay đổi
+  useEffect(() => {
+    onTimeUpRef.current = onTimeUp;
+  }, [onTimeUp]);
 
-        return [hours,minutes,seconds]
-            .map(v => v <10 ? "0" + v : v)
-            .filter((v,i) => v !== "00"  || i > 0)
-            .join(":")
-    }
+  const toHHMMSS = (secs) => {
+    const sec_num = parseInt(secs, 10);
+    const hours = Math.floor(sec_num / 3600);
+    const minutes = Math.floor(sec_num / 60) % 60;
+    const seconds = sec_num % 60;
 
+    return [hours, minutes, seconds]
+      .map((v) => (v < 10 ? "0" + v : v))
+      .filter((v, i) => v !== "00" || i > 0)
+      .join(":");
+  };
 
-    useEffect(()=> {
-        if(count === 0) {
-            onTimeUp();
-            return;
-        };
-        const timer = setInterval(()=>{
-            setCount(count-1);
-        },1000);
-        return () =>{
-            clearInterval(timer)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCount((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          onTimeUpRef.current?.(); // gọi đúng callback mới nhất, không cần trong deps
+          return 0;
         }
-    }, [count])
-    return(
-        <div className="countdown-container">
-            {toHHMMSS(count)}
-        </div>
-    )
-}
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []); // ✅ chỉ chạy 1 lần, không cần thêm onTimeUp vào
+
+  return <div className="countdown-container">{toHHMMSS(count)}</div>;
+};
+
 export default CountDown;
