@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { postRegister } from '../../services/apiService';
 import { toast } from 'react-toastify';
+import Language from '../Header/Languages';
 
 const Register = () => {
     const [email, setEmail] = useState('');
@@ -55,7 +56,7 @@ const Register = () => {
 
 return (
     <div className="register-container">
-        <div className="header"><span>Already have an account?</span><button onClick={() => navigate('/login')} className='btn-signup'>Log in</button></div>
+        <div className="header"><span>Already have an account?</span><button onClick={() => navigate('/login')} className='btn-signup'>Log in</button><Language/></div>
         <div className="title col-4 mx-auto">QWQ</div>
         <div className="welcome col-4 mx-auto">Start your journey?</div>
         <div className="content-form col-4 mx-auto">

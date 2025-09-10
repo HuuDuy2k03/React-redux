@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { doLogin } from "../../redux/action/userAction";
 import { FaCog } from "react-icons/fa";
+import Language from "../Header/Languages";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -57,6 +58,7 @@ const Login = () => {
         <button onClick={() => navigate("/register")} className="btn-signup">
           Sign up
         </button>
+        <Language/>
       </div>
       <div className="title col-4 mx-auto">QWQ</div>
       <div className="welcome col-4 mx-auto">Hello, who's this</div>
