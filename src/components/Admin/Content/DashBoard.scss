@@ -2,24 +2,33 @@
     padding: 15px;
     .title{
         font-weight: 600;
-        font-style: 20px;
+        font-size: 20px;
+        margin-bottom: 20px;
     }
 
     .content{
         display: flex;
+        gap: 20px;
 
         .c-left{
-            width: 50%;
+            width:50% ;
             display: flex;
             flex-wrap: wrap;
+            gap: 20px;
 
             .c-left-child{
                 height: 150px;
-                width: 50%;
+                width: calc(50% - 10px);
+                border-radius: 10px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                border: 1px solid red;
+                flex-direction: column;
+                border: 1px solid rgb(118, 118, 118);
+
+                .num{
+                    font-size: 20px;
+                }
             }
         }
         .c-right{
