@@ -5,9 +5,12 @@ import React, { useState } from 'react';
 import { Outlet } from "react-router-dom";
 import { NavDropdown } from "react-bootstrap";
 import Language from "../Header/Languages";
+import { useTranslation } from "react-i18next";
 
 const Admin = (props) => {
   const [collapsed, setCollapsed] = useState(false);
+
+  const { t } = useTranslation();
 
   const handleToggleSidebar = () => {
     setCollapsed(!collapsed);
@@ -28,9 +31,9 @@ const Admin = (props) => {
         <div className="admin-header">
           <span onClick={handleToggleSidebar}><FaBars className="left-side"/></span>
           <div className="right-side">
-            <NavDropdown title="Settings"  id="basic-nav-dropdown">
-                <NavDropdown.Item >Profile</NavDropdown.Item>
-                <NavDropdown.Item >Logout</NavDropdown.Item>
+            <NavDropdown title={t("admin.settings")}  id="basic-nav-dropdown">
+                <NavDropdown.Item >{t("admin.profile")}</NavDropdown.Item>
+                <NavDropdown.Item >{t("admin.logout")}</NavDropdown.Item>
             </NavDropdown>
             <Language/>
           </div>

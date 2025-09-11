@@ -5,8 +5,11 @@ import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
 import { PutUpdateQuizForAdmin } from "../../../../services/apiService";
 import _ from "lodash";
+import { useTranslation } from "react-i18next";
 
 const ModelUpdateQuiz = ({ dataUpdate, show, setShow, setDataUpdate, fetchQuiz }) => {
+
+  const { t } = useTranslation();
 
   const handleClose = () => {
     setShow(false);
@@ -50,12 +53,12 @@ const ModelUpdateQuiz = ({ dataUpdate, show, setShow, setDataUpdate, fetchQuiz }
   const handleSubmitCreateUser = async () => {
     //Validate
     if (!name) {
-      toast.error("Invalid name");
+      toast.error(t("manageQuiz.modalUpdate.messages.invalidName"));
       return;
     }
 
     if (!description) {
-      toast.error("Invalid description");
+      toast.error(t("manageQuiz.modalUpdate.messages.invalidDescription"));
       return;
     }
 
@@ -84,12 +87,12 @@ const ModelUpdateQuiz = ({ dataUpdate, show, setShow, setDataUpdate, fetchQuiz }
         className="modal-add-user"
       >
         <Modal.Header closeButton>
-          <Modal.Title>Update Quiz</Modal.Title>
+          <Modal.Title>{t("manageQuiz.modalUpdate.title")}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form className="row g-3">
             <div className="col-md-6">
-              <label className="form-label">Name</label>
+              <label className="form-label">{t("manageQuiz.modalUpdate.fields.name")}</label>
               <input
                 type="text"
                 className="form-control"
@@ -100,7 +103,7 @@ const ModelUpdateQuiz = ({ dataUpdate, show, setShow, setDataUpdate, fetchQuiz }
             </div>
 
             <div className="col-md-6">
-              <label className="form-label">description</label>
+              <label className="form-label">{t("manageQuiz.modalUpdate.fields.description")}</label>
               <input
                 type="text"
                 className="form-control"
@@ -111,7 +114,7 @@ const ModelUpdateQuiz = ({ dataUpdate, show, setShow, setDataUpdate, fetchQuiz }
             </div>
 
             <div className="col-md-6">
-              <label className="form-label">Role</label>
+              <label className="form-label">{t("manageQuiz.modalUpdate.fields.difficulty")}</label>
               <select
                 className="form-select"
                 value={type}
@@ -126,7 +129,7 @@ const ModelUpdateQuiz = ({ dataUpdate, show, setShow, setDataUpdate, fetchQuiz }
             <div className="col-md-12">
               <label className="form-label label-upload" htmlFor="labelUpload">
                 <FcPlus />
-                Upload File Image
+                {t("manageQuiz.modalUpdate.fields.upload")}
               </label>
               <input
                 type="file"
@@ -140,17 +143,17 @@ const ModelUpdateQuiz = ({ dataUpdate, show, setShow, setDataUpdate, fetchQuiz }
               {imagePreview ? (
                 <img src={imagePreview} alt="Preview" className="img-preview" />
               ) : (
-                <span>Image Preview</span>
+                <span>{t("manageQuiz.modalUpdate.fields.preview")}</span>
               )}
             </div>
           </form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            {t("manageQuiz.modalUpdate.buttons.close")}
           </Button>
           <Button variant="primary" onClick={() => handleSubmitCreateUser()}>
-            Save
+            {t("manageQuiz.modalUpdate.buttons.save")}
           </Button>
         </Modal.Footer>
       </Modal>

@@ -2,11 +2,14 @@ import { useState, useEffect } from "react";
 import { getQuizByUser } from "../../services/apiService";
 import "./ListQuiz.scss";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const ListQuiz = () => {
   const [arrQuiz, setArrQuiz] = useState([]);
   const [loading, setLoading] = useState(true); // thêm state loading
   const navigate = useNavigate();
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     const getQuizData = async () => {
@@ -23,7 +26,7 @@ const ListQuiz = () => {
   return (
     <div className="list-quiz-container container">
       {loading ? (
-        <p>Loading quizzes...</p> // trạng thái đang load
+        <p>{t("ListQuiz.loading")}</p> // trạng thái đang load
       ) : arrQuiz && arrQuiz.length > 0 ? (
         arrQuiz.map((quiz, idx) => (
           <div className="card" style={{ width: "18rem" }} key={idx}>
@@ -33,20 +36,20 @@ const ListQuiz = () => {
               alt="..."
             />
             <div className="card-body">
-              <h5 className="card-title">Quiz {idx + 1}</h5>
+              <h5 className="card-title">{t("ListQuiz.quizTitle", { index: idx + 1 })}</h5>
               <p className="card-text">{quiz.description}</p>
               <button
                 type="button"
                 className="btn btn-primary"
                 onClick={() => navigate(`/quiz/${quiz.id}`, {state: {quizTitle: quiz.description}})}
               >
-                Start Quiz
+                {t("ListQuiz.start")}
               </button>
             </div>
           </div>
         ))
       ) : (
-        <p>No quizzes found.</p> // trạng thái không có quiz
+        <p>{t("ListQuiz.noQuiz")}</p> // trạng thái không có quiz
       )}
     </div>
   );

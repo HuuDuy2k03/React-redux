@@ -14,10 +14,13 @@ import { MdDashboard } from "react-icons/md";
 import sidebarBg from '../../assets/bg2.jpg';
 import "./SideBar.scss"; // Assuming you have some styles for the SideBar component
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 
 const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
   const navigate = useNavigate();
+
+  const { t } = useTranslation();
 
   return (
     <>
@@ -54,7 +57,7 @@ const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
             <MenuItem
               icon={<MdDashboard />}
             >
-              Dashboard
+              {t("sidebar.dashboard")}
               <Link to="/admins" />
             </MenuItem>
             
@@ -62,11 +65,11 @@ const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
           <Menu iconShape="circle">
             <SubMenu
               icon={<FaGem />}
-              title="Features"
+              title={t("sidebar.features")}
             >
-              <MenuItem>Quản lý Users <Link to="/admins/manage-user" /></MenuItem>
-              <MenuItem>Quản lý Quiz <Link to="/admins/manage-quiz" /></MenuItem>
-              <MenuItem>Quản lý Questions <Link to="/admins/manage-questions" /></MenuItem>
+              <MenuItem>{t("sidebar.manageUsers")} <Link to="/admins/manage-user" /></MenuItem>
+              <MenuItem>{t("sidebar.manageQuiz")} <Link to="/admins/manage-quiz" /></MenuItem>
+              <MenuItem>{t("sidebar.manageQuestions")} <Link to="/admins/manage-questions" /></MenuItem>
             </SubMenu>
           </Menu>
         </SidebarContent>
@@ -92,7 +95,7 @@ const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
                   overflow: "hidden",
                 }}
               >
-                view source
+                {t("sidebar.viewSource")}
               </span>
             </a>
           </div>

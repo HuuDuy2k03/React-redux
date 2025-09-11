@@ -1,11 +1,14 @@
 import _ from "lodash";
 import { useState } from "react";
 import Lightbox from "yet-another-react-lightbox";
+import { useTranslation } from "react-i18next";
 
 const Question = ({ data, curQuestion, handleCheckboxChange }) => {
     
     const [open, setOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
+
+    const { t } = useTranslation();
     
     if (_.isEmpty(data)) {
         return null;
@@ -39,7 +42,12 @@ const Question = ({ data, curQuestion, handleCheckboxChange }) => {
         ) : <div className="q-image">
 
             </div>}
-        <div className="question"> Question {curQuestion + 1}: {data.questionDescription}</div>
+        <div className="question">{
+            t("Question.title", {
+            index: curQuestion + 1,
+            description: data.questionDescription,
+            })}
+        </div>
           <div className="answers">
             {data.answers && data.answers.length > 0 && 
                 data.answers.map((answer, index) => {

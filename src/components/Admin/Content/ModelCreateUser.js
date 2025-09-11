@@ -4,6 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
 import { postCreateNewUser } from "../../../services/apiService";
+import { useTranslation } from "react-i18next";
 
 const ModelCreateUser = ({ show, setShow, fetchListUsers ,fetchListUsersPaginate, currentPage,setCurrentPage }) => {
   const handleClose = () => {
@@ -15,6 +16,8 @@ const ModelCreateUser = ({ show, setShow, fetchListUsers ,fetchListUsersPaginate
     setImage("");
     setImagePreview("");
   };
+
+  const { t } = useTranslation();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -94,12 +97,12 @@ const ModelCreateUser = ({ show, setShow, fetchListUsers ,fetchListUsersPaginate
         className="modal-add-user"
       >
         <Modal.Header closeButton>
-          <Modal.Title>Add new user</Modal.Title>
+          <Modal.Title>{t("modalUser.create.title")}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form className="row g-3">
             <div className="col-md-6">
-              <label className="form-label">Email</label>
+              <label className="form-label">{t("modalUser.fields.email")}</label>
               <input
                 type="email"
                 className="form-control"
@@ -110,7 +113,7 @@ const ModelCreateUser = ({ show, setShow, fetchListUsers ,fetchListUsersPaginate
             </div>
 
             <div className="col-md-6">
-              <label className="form-label">Password</label>
+              <label className="form-label">{t("modalUser.fields.password")}</label>
               <input
                 type="password"
                 className="form-control"
@@ -121,7 +124,7 @@ const ModelCreateUser = ({ show, setShow, fetchListUsers ,fetchListUsersPaginate
             </div>
 
             <div className="col-md-6">
-              <label className="form-label">Username</label>
+              <label className="form-label">{t("modalUser.fields.username")}</label>
               <input
                 type="text"
                 className="form-control"
@@ -131,20 +134,20 @@ const ModelCreateUser = ({ show, setShow, fetchListUsers ,fetchListUsersPaginate
             </div>
 
             <div className="col-md-4">
-              <label className="form-label">Role</label>
+              <label className="form-label">{t("modalUser.fields.role")}</label>
               <select
                 className="form-select"
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
               >
-                <option value="USER">USER</option>
-                <option value="ADMIN">ADMIN</option>
+                <option value="USER">{t("modalUser.roles.user")}</option>
+                <option value="ADMIN">{t("modalUser.roles.admin")}</option>
               </select>
             </div>
             <div className="col-md-12">
               <label className="form-label label-upload" htmlFor="labelUpload">
                 <FcPlus />
-                Upload File Image
+                {t("modalUser.fields.upload")}
               </label>
               <input
                 type="file"
@@ -158,17 +161,17 @@ const ModelCreateUser = ({ show, setShow, fetchListUsers ,fetchListUsersPaginate
               {imagePreview ? (
                 <img src={imagePreview} alt="Preview" className="img-preview" />
               ) : (
-                <span>Image Preview</span>
+                <span>{t("modalUser.fields.imagePreview")}</span>
               )}
             </div>
           </form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            {t("modalUser.actions.close")}
           </Button>
           <Button variant="primary" onClick={() => handleSubmitCreateUser()}>
-            Save
+            {t("modalUser.create.save")}
           </Button>
         </Modal.Footer>
       </Modal>

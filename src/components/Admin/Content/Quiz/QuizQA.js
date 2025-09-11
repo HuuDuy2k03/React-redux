@@ -11,8 +11,10 @@ import _ from "lodash";
 import Lightbox from "yet-another-react-lightbox";
 import { getAllQuizzesForAdmin, getQuizWithQA, postUpsertQA } from "../../../../services/apiService";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const QuizQA = () => {
+  const { t } = useTranslation();
 
   const initQuestion = [
     {
@@ -151,7 +153,7 @@ const QuizQA = () => {
   const handleSubmitQuestionsForQuiz = async () => {
     // todo
     if(_.isEmpty(selectedQuiz)){
-      toast.error("Please choose a Quiz")
+      toast.error(t("quizQA.validation.chooseQuiz"))
       return;
     }
 
@@ -168,7 +170,7 @@ const QuizQA = () => {
       if(isValidQ === false) break;
     }
     if(!isValidQ){
-      toast.error(`Not empty description for Question ${indexQ1 + 1}`);
+      toast.error(t("quizQA.validation.emptyQuestion", { index: indexQ1 + 1 }));
       return;
     }
 
@@ -188,7 +190,10 @@ const QuizQA = () => {
       if(isValidAnswer === false) break;
     }
     if(!isValidAnswer){
-      toast.error(`Not empty Answer ${indexA + 1} at Question ${indexQ + 1}`);
+      toast.error(t("quizQA.validation.emptyAnswer", {
+          answerIndex: indexA + 1,
+          questionIndex: indexQ + 1,
+        }));
       return;
     }
 
@@ -224,14 +229,14 @@ const QuizQA = () => {
     <div className="question-container">
       <div className="add-new">
         <div className="col-6 form-group">
-          <label className="mb-2">Select Quiz: </label>
+          <label className="mb-2">{t("quizQA.selectQuiz")}</label>
           <Select
             defaultValue={selectedQuiz}
             onChange={setSelectedQuiz}
             options={listQuiz}
           />
         </div>
-        <div className="mt-3 mb-2">Add Question: </div>
+        <div className="mt-3 mb-2">{t("quizQA.addQuestion")}</div>
         {questions &&
           questions.length > 0 &&
           questions.map((question, index) => {
@@ -246,15 +251,17 @@ const QuizQA = () => {
                       value={question.description}
                       onChange={(event) => handleOnChange("QUESTION", question.id, null, event.target.value)}
                     />
-                    <label>Question {index + 1}'s Description</label>
+                    <label>{t("quizQA.questionDescription", { index: index + 1 })}</label>
                   </div>
                   <div className="group-upload">
                     <label htmlFor={`upload-file-${question.id}`}>
                       <RiImageAddFill className="label-upload" />
                     </label>
                     <input id={`upload-file-${question.id}`} type="file" hidden onChange={(event) => handleOnChangeFileQuestion(question.id, event)} />
-                    <span onClick={() => {if(question.imageFile) {setSelectedImage(question.imageFile); setOpen(true)}}}>{question.imageFile ? "1" : "0"} file(s) selected:{" "}
-                      {question.imageName || ""}
+                    <span onClick={() => {if(question.imageFile) {setSelectedImage(question.imageFile); setOpen(true)}}}>{t("quizQA.fileSelected", {
+                      count: question.imageFile ? 1 : 0,
+                      name: question.imageName || "",
+                    })}
                     </span>
                   </div>
                   <div className="btn-add">
@@ -287,7 +294,7 @@ const QuizQA = () => {
                                     value={answer.description}
                                     onChange={(event) => handleOnChange("ANSWER", question.id, answer.id, event.target.value)}
                                 />
-                                <label>Answer {index + 1}</label>
+                                <label>{t("quizQA.answerLabel", { index: index + 1 })}</label>
                             </div>
                             <div className="btn-add">
                                 <span onClick={() => handleAddRemoveAnswer("ADD", question.id, null)}>
@@ -307,7 +314,7 @@ const QuizQA = () => {
           })}
         {questions && questions.length > 0 && (
           <div>
-            <button onClick={()=> handleSubmitQuestionsForQuiz()} className="btn btn-primary">Save Questions</button>
+            <button onClick={()=> handleSubmitQuestionsForQuiz()} className="btn btn-primary">{t("quizQA.buttons.save")}</button>
           </div>
         )}
       </div>

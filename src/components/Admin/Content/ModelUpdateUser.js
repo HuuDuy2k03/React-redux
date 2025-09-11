@@ -5,6 +5,7 @@ import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
 import { PutUpdateUser } from "../../../services/apiService";
 import _ from "lodash";
+import { useTranslation } from "react-i18next";
 
 const ModelUpdateUser = ({ dataUpdate, show, setShow, fetchListUsers ,fetchListUsersPaginate, currentPage,setCurrentPage }) => {
   const handleClose = () => {
@@ -16,6 +17,8 @@ const ModelUpdateUser = ({ dataUpdate, show, setShow, fetchListUsers ,fetchListU
     setImage("");
     setImagePreview("");
   };
+
+  const { t } = useTranslation();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -97,12 +100,12 @@ const ModelUpdateUser = ({ dataUpdate, show, setShow, fetchListUsers ,fetchListU
         className="modal-add-user"
       >
         <Modal.Header closeButton>
-          <Modal.Title>Update user</Modal.Title>
+          <Modal.Title>{t("modalUser.update.title")}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form className="row g-3">
             <div className="col-md-6">
-              <label className="form-label">Email</label>
+              <label className="form-label">{t("modalUser.fields.email")}</label>
               <input
                 type="email"
                 className="form-control"
@@ -114,7 +117,7 @@ const ModelUpdateUser = ({ dataUpdate, show, setShow, fetchListUsers ,fetchListU
             </div>
 
             <div className="col-md-6">
-              <label className="form-label">Password</label>
+              <label className="form-label">{t("modalUser.fields.password")}</label>
               <input
                 type="password"
                 className="form-control"
@@ -126,7 +129,7 @@ const ModelUpdateUser = ({ dataUpdate, show, setShow, fetchListUsers ,fetchListU
             </div>
 
             <div className="col-md-6">
-              <label className="form-label">Username</label>
+              <label className="form-label">{t("modalUser.fields.username")}</label>
               <input
                 type="text"
                 className="form-control"
@@ -136,20 +139,20 @@ const ModelUpdateUser = ({ dataUpdate, show, setShow, fetchListUsers ,fetchListU
             </div>
 
             <div className="col-md-4">
-              <label className="form-label">Role</label>
+              <label className="form-label">{t("modalUser.fields.role")}</label>
               <select
                 className="form-select"
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
               >
-                <option value="USER">USER</option>
-                <option value="ADMIN">ADMIN</option>
+                <option value="USER">{t("modalUser.roles.user")}</option>
+                <option value="ADMIN">{t("modalUser.roles.admin")}</option>
               </select>
             </div>
             <div className="col-md-12">
               <label className="form-label label-upload" htmlFor="labelUpload">
                 <FcPlus />
-                Upload File Image
+                {t("modalUser.fields.upload")}
               </label>
               <input
                 type="file"
@@ -163,17 +166,17 @@ const ModelUpdateUser = ({ dataUpdate, show, setShow, fetchListUsers ,fetchListU
               {imagePreview ? (
                 <img src={imagePreview} alt="Preview" className="img-preview" />
               ) : (
-                <span>Image Preview</span>
+                <span>{t("modalUser.fields.imagePreview")}</span>
               )}
             </div>
           </form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            {t("modalUser.actions.close")}
           </Button>
           <Button variant="primary" onClick={() => handleSubmitCreateUser()}>
-            Save
+            {t("modalUser.update.save")}
           </Button>
         </Modal.Footer>
       </Modal>

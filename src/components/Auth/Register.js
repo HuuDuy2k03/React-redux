@@ -4,11 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { postRegister } from '../../services/apiService';
 import { toast } from 'react-toastify';
 import Language from '../Header/Languages';
+import { useTranslation } from 'react-i18next';
 
 const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
+
+    const { t } = useTranslation();
 
     const navigate = useNavigate();
 
@@ -32,12 +35,12 @@ const Register = () => {
         const isValidEmail = validateEmail(email);
         const isValidPassword = validatePassword(password);
         if (!isValidEmail) {
-        toast.error("Invalid email");
+        toast.error(t('register.error.invalidEmail'));
         return;
         }
         if (!isValidPassword) {
         toast.error(
-            "Password must be at least 5 characters, include uppercase, lowercase, number, and special character"
+            t('register.error.invalidPassword')
         );
         return;
         }
@@ -56,26 +59,26 @@ const Register = () => {
 
 return (
     <div className="register-container">
-        <div className="header"><span>Already have an account?</span><button onClick={() => navigate('/login')} className='btn-signup'>Log in</button><Language/></div>
-        <div className="title col-4 mx-auto">QWQ</div>
-        <div className="welcome col-4 mx-auto">Start your journey?</div>
+        <div className="header"><span>{t('register.alreadyHaveAccount')}</span><button onClick={() => navigate('/login')} className='btn-signup'>{t('register.login')}</button><Language/></div>
+        <div className="title col-4 mx-auto">{t('register.title')}</div>
+        <div className="welcome col-4 mx-auto">{t('register.welcome')}</div>
         <div className="content-form col-4 mx-auto">
             <div className='form-group'>
-                <label>Email(*)</label>
+                <label>{t('register.email')}</label>
                 <input type="email" id="email" className='form-control' value={email} onChange={(e) => setEmail(e.target.value)} />
             </div>
             <div className='form-group'>
-                <label>Password(*)</label>
+                <label>{t('register.password')}</label>
                 <input type="password" id="password" className='form-control' value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
             <div className='form-group'>
-                <label>Username</label>
+                <label>{t('register.username')}</label>
                 <input type="text" id="username" className='form-control' value={username} onChange={(e) => setUsername(e.target.value)} />
             </div>
             <div>
-                <button className='btn-login btn'onClick={() => handleRegister()}>Create an account</button>
+                <button className='btn-login btn'onClick={() => handleRegister()}>{t('register.createAccount')}</button>
             </div>
-            <div className='text-center'><span className='back' onClick={()=> { navigate('/')}}>&#60;&#60; Go to Homepage</span></div>
+            <div className='text-center'><span className='back' onClick={()=> { navigate('/')}}>{t('register.backHome')}</span></div>
         </div>
     </div>
   );

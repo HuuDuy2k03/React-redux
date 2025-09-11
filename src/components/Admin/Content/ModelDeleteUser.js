@@ -3,10 +3,13 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { deleteUser } from '../../../services/apiService';
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const ModalDeleteUser = ({ show, setShow, dataUpdate,fetchListUsers ,fetchListUsersPaginate, currentPage,setCurrentPage }) => {
 
   const handleClose = () => setShow(false);
+
+  const { t } = useTranslation();
 
   const handleSubmitDeleteUser=async()=>{
     let data = await deleteUser(dataUpdate.id);
@@ -27,15 +30,15 @@ const ModalDeleteUser = ({ show, setShow, dataUpdate,fetchListUsers ,fetchListUs
 
       <Modal show={show} onHide={handleClose} backdrop="static">
         <Modal.Header closeButton>
-          <Modal.Title>Confirm Delete</Modal.Title>
+          <Modal.Title>{t("modalUser.delete.title")}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure you want to delete this user? Email: <b>{dataUpdate.email}</b></Modal.Body>
+        <Modal.Body>{t("modalUser.delete.message", { email: dataUpdate?.email })}</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Cancel
+            {t("modalUser.delete.cancel")}
           </Button>
           <Button variant="primary" onClick={() => handleSubmitDeleteUser()}>
-            Confirm
+            {t("modalUser.delete.confirm")}
           </Button>
         </Modal.Footer>
       </Modal>

@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { doLogin } from "../../redux/action/userAction";
 import { FaCog } from "react-icons/fa";
 import Language from "../Header/Languages";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,6 +16,8 @@ const Login = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const { t } = useTranslation();
 
   const validateEmail = (email) => {
     return String(email)
@@ -54,14 +57,14 @@ const Login = () => {
   return (
     <div className="login-container">
       <div className="header">
-        <span>Don't have an account yet?</span>
+        <span>{t("Login.noAccount")}</span>
         <button onClick={() => navigate("/register")} className="btn-signup">
-          Sign up
+          {t("Login.signup")}
         </button>
         <Language/>
       </div>
-      <div className="title col-4 mx-auto">QWQ</div>
-      <div className="welcome col-4 mx-auto">Hello, who's this</div>
+      <div className="title col-4 mx-auto">{t("Login.title")}</div>
+      <div className="welcome col-4 mx-auto">{t("Login.welcome")}</div>
       <div className="content-form col-4 mx-auto">
         <form
           onSubmit={(e) => {
@@ -70,7 +73,7 @@ const Login = () => {
           }}
         >
           <div className="form-group">
-            <label>Email</label>
+            <label>{t("Login.email")}</label>
             <input
               type="email"
               id="email"
@@ -82,7 +85,7 @@ const Login = () => {
           </div>
 
           <div className="form-group">
-            <label>Password</label>
+            <label>{t("Login.password")}</label>
             <input
               type="password"
               id="password"
@@ -93,17 +96,17 @@ const Login = () => {
             />
           </div>
 
-          <span className="forgot-password">Forgot your password?</span>
+          <span className="forgot-password">{t("Login.forgot")}</span>
 
           <div>
             <button type="submit" className="btn-login btn" disabled={isLoading}>
               {isLoading ? (
                 <>
                   <FaCog className="loader-icon" />
-                  <span>Logging in...</span>
+                  <span>{t("Login.loggingIn")}</span>
                 </>
               ) : (
-                <span>Log in to QWQ</span>
+                <span>{t("Login.loginBtn")}</span>
               )}
             </button>
           </div>
@@ -115,7 +118,7 @@ const Login = () => {
                 navigate("/");
               }}
             >
-              &#60;&#60; Go to Homepage
+              {t("Login.backHome")}
             </span>
           </div>
         </form>

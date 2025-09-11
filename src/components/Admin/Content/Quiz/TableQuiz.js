@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import { getAllQuizzesForAdmin } from "../../../../services/apiService";
 import ModelUpdateQuiz from "./ModelUpdateQuiz";
 import ModalDeleteQuiz from "./ModelDeleteQuiz";
+import { useTranslation } from "react-i18next";
 
 const TableQuiz = (({fetchTrigger}) => {
+  
+  const { t } = useTranslation();
 
     const [listQuiz, setListQuiz] = useState([]);
     const [isShowModalUpdate, setIsShowModalUpdate] = useState(false);
@@ -34,15 +37,15 @@ const TableQuiz = (({fetchTrigger}) => {
 
   return (
     <>
-        <h2 className="text-center">List of Quizzes</h2>
+        <h2 className="text-center">{t("manageQuiz.tableQuiz.title")}</h2>
       <table className="table table-hover table-striped table-bordered mt-5">
         <thead>
           <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Type</th>
-            <th scope="col">Actions</th>
+            <th>{t("manageQuiz.tableQuiz.columns.id")}</th>
+            <th>{t("manageQuiz.tableQuiz.columns.name")}</th>
+            <th>{t("manageQuiz.tableQuiz.columns.description")}</th>
+            <th>{t("manageQuiz.tableQuiz.columns.type")}</th>
+            <th>{t("manageQuiz.tableQuiz.columns.actions")}</th>
           </tr>
         </thead>
         <tbody>
@@ -55,8 +58,8 @@ const TableQuiz = (({fetchTrigger}) => {
                       <td>{quiz.description}</td>
                       <td>{quiz.difficulty}</td>
                       <td className="d-flex gap-2">
-                        <button className="btn btn-primary" onClick={() => handleUpdate(quiz)}>Edit</button>
-                        <button className="btn btn-danger" onClick={() => handleDelete(quiz)}>Delete</button>
+                        <button className="btn btn-primary" onClick={() => handleUpdate(quiz)}>{t("manageQuiz.tableQuiz.buttons.edit")}</button>
+                        <button className="btn btn-danger" onClick={() => handleDelete(quiz)}>{t("manageQuiz.tableQuiz.buttons.delete")}</button>
                       </td>
                     </tr>
                 )
@@ -64,7 +67,7 @@ const TableQuiz = (({fetchTrigger}) => {
               })
             ) : (
               <tr>
-                <td colSpan="5" className="text-center">No quizzes found</td>
+                <td colSpan="5" className="text-center">{t("manageQuiz.tableQuiz.noData")}</td>
               </tr>
             )}
         </tbody>

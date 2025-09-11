@@ -7,11 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../services/apiService";
 import { toast } from "react-toastify";
 import { doLogout } from "../../redux/action/userAction";
-import Language  from "./Languages"
+import Language  from "./Languages";
+import { useTranslation} from 'react-i18next';
 
 const Header = () => {
   const navigate = useNavigate();
   const { isAuthenticated, account } = useSelector((state) => state.user);
+
+  const { t } = useTranslation();
 
   const dispatch = useDispatch();
 
@@ -33,18 +36,18 @@ const Header = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={NavLink} to="/">Home</Nav.Link>
-            <Nav.Link as={NavLink} to="/users">Users</Nav.Link>
-            <Nav.Link as={NavLink} to="/admins">Admin</Nav.Link>
+            <Nav.Link as={NavLink} to="/">{t("Header.Home")}</Nav.Link>
+            <Nav.Link as={NavLink} to="/users">{t("Header.Users")}</Nav.Link>
+            <Nav.Link as={NavLink} to="/admins">{t("Header.Admin")}</Nav.Link>
           </Nav>
           <Nav>{isAuthenticated ? 
             <NavDropdown title={<><img src={`data:image/jpeg;base64,${account.image}`} alt={account.image ? account.username : ''} className="user-avatar" style={{ width: 32, height: 32, borderRadius: "50%", objectFit: "cover" }} />{account.username}</>}  id="basic-nav-dropdown">
-                <NavDropdown.Item as={NavLink} to="/profile">Profile</NavDropdown.Item>
-                <NavDropdown.Item onClick={() => handleLogout()}>Logout</NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to="/profile">{t("Header.Profile")}</NavDropdown.Item>
+                <NavDropdown.Item onClick={() => handleLogout()}>{t("Header.Logout")}</NavDropdown.Item>
             </NavDropdown> : (
             <>
-              <button onClick={() => navigate("/login")} className="btn-login">Log in</button>
-              <button onClick={() => navigate("/register")} className="btn-signup">Sign up</button>
+              <button onClick={() => navigate("/login")} className="btn-login">{t("Header.Login")}</button>
+              <button onClick={() => navigate("/register")} className="btn-signup">{t("Header.Signup")}</button>
             </>
           )}
           <Language/>

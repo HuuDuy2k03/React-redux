@@ -4,5 +4,265 @@
     "description": "Thu thập tất cả dữ liệu bạn cần để hiểu khách hàng với các biểu mẫu được thiết kế khác biệt.",
     "getStarted": "Bắt đầu ngay. Miễn phí",
     "goToQuiz": "Đi tới bài Quiz"
+  },
+  "Header":{
+    "Home":"Trang chủ",
+    "Users":"Người dùng",
+    "Admin":"Quản Trị ",
+    "Profile":"Thông tin cá nhân",
+    "Logout":"Đăng xuất",
+    "Signup":"Đăng kí",
+    "Login" :"Đăng nhập"
+  },
+  "DetailQuiz": {
+    "breadcrumb": {
+      "home": "Trang chủ",
+      "users": "Người dùng",
+      "quiz": "Bài Quiz"
+    },
+    "title": "Bài Quiz {{quizId}} : {{quizTitle}}",
+    "buttons": {
+      "prev": "Trước",
+      "next": "Tiếp",
+      "finish": "Hoàn thành"
+    },
+    "alerts": {
+      "errorSubmit": "Có lỗi xảy ra khi nộp bài Quiz"
+    }
+  },
+  "ListQuiz": {
+    "loading": "Đang tải danh sách quiz...",
+    "noQuiz": "Không tìm thấy quiz nào.",
+    "quizTitle": "Bài Quiz {{index}}",
+    "start": "Bắt đầu Quiz"
+  },
+  "ModalResult": {
+    "title": "Kết quả của bạn...",
+    "totalQuestions": "Tổng số câu hỏi: <b>{{count}}</b>",
+    "totalCorrect": "Tổng số câu trả lời đúng: <b>{{count}}</b>",
+    "showAnswers": "Xem đáp án",
+    "close": "Đóng"
+  },
+  "Question": {
+    "title": "Câu hỏi {{index}}: {{description}}"
+  },
+  "Login": {
+    "noAccount": "Bạn chưa có tài khoản?",
+    "signup": "Đăng ký",
+    "title": "QWQ",
+    "welcome": "Xin chào, bạn là ai?",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "forgot": "Quên mật khẩu?",
+    "loggingIn": "Đang đăng nhập...",
+    "loginBtn": "Đăng nhập vào QWQ",
+    "backHome": "<< Về Trang chủ",
+    "invalidEmail": "Email không hợp lệ",
+    "invalidPassword": "Mật khẩu không hợp lệ"
+  },
+  "register": {
+    "alreadyHaveAccount": "Đã có tài khoản?",
+    "login": "Đăng nhập",
+    "title": "QWQ",
+    "welcome": "Bắt đầu hành trình của bạn?",
+    "email": "Email(*)",
+    "password": "Mật khẩu(*)",
+    "username": "Tên người dùng",
+    "createAccount": "Tạo tài khoản",
+    "backHome": "« Quay lại Trang chủ",
+    "error": {
+      "invalidEmail": "Email không hợp lệ",
+      "invalidPassword": "Mật khẩu phải có ít nhất 5 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt"
+    }
+  },
+  "sidebar": {
+    "dashboard": "Bảng điều khiển",
+    "features": "Tính năng",
+    "manageUsers": "Quản lý Người dùng",
+    "manageQuiz": "Quản lý Quiz",
+    "manageQuestions": "Quản lý Câu hỏi",
+    "viewSource": "Xem mã nguồn"
+  },
+  "admin": {
+    "settings": "Cài đặt",
+    "profile": "Thông tin cá nhân",
+    "logout": "Đăng xuất"
+  },
+  "dashboard": {
+    "title": "Bảng điều khiển phân tích",
+    "totalUsers": "Tổng số người dùng",
+    "totalQuiz": "Tổng số bài Quiz",
+    "totalQuestions": "Tổng số câu hỏi",
+    "totalAnswers": "Tổng số câu trả lời",
+    "chart": {
+      "quizzes": "Bài Quiz",
+      "questions": "Câu hỏi",
+      "answers": "Câu trả lời"
+    }
+  },
+  "manageUser": {
+    "title": "Quản lý người dùng",
+    "addNew": "Thêm người dùng mới"
+  },
+  "modalUser": {
+    "create": {
+      "title": "Thêm người dùng mới",
+      "save": "Lưu"
+    },
+    "update": {
+      "title": "Cập nhật người dùng",
+      "save": "Lưu"
+    },
+    "delete": {
+      "title": "Xác nhận xóa",
+      "message": "Bạn có chắc chắn muốn xóa người dùng này? Email: {{email}}",
+      "confirm": "Xác nhận",
+      "cancel": "Hủy"
+    },
+    "view": {
+      "title": "Xem thông tin người dùng"
+    },
+    "fields": {
+      "email": "Email",
+      "password": "Mật khẩu",
+      "username": "Tên đăng nhập",
+      "role": "Vai trò",
+      "upload": "Tải ảnh lên",
+      "imagePreview": "Xem trước ảnh"
+    },
+    "roles": {
+      "user": "Người dùng",
+      "admin": "Quản trị viên"
+    },
+    "actions": {
+      "close": "Đóng",
+      "save": "Lưu"
+    }
+  },
+  "tableUser": {
+    "headers": {
+      "id": "ID",
+      "username": "Tên người dùng",
+      "email": "Email",
+      "role": "Vai trò",
+      "actions": "Thao tác"
+    },
+    "actions": {
+      "view": "Xem",
+      "edit": "Sửa",
+      "delete": "Xóa"
+    },
+    "messages": {
+      "noUsers": "Không tìm thấy người dùng."
+    },
+    "pagination": {
+      "next": "Tiếp >",
+      "prev": "< Trước",
+      "break": "..."
+    }
+  },
+  "manageQuiz": {
+    "title": "Quản lý Quiz",
+    "addNew": "Thêm Quiz mới",
+    "fields": {
+      "name": "Tên Quiz",
+      "description": "Mô tả",
+      "type": "Chọn loại",
+      "upload": "Tải tệp lên"
+    },
+    "buttons": {
+      "save": "Lưu"
+    },
+    "messages": {
+      "fillAll": "Vui lòng nhập đầy đủ thông tin"
+    },
+    "tableQuiz": {
+      "title": "Danh sách Quiz",
+      "columns": {
+        "id": "Mã",
+        "name": "Tên",
+        "description": "Mô tả",
+        "type": "Độ khó",
+        "actions": "Hành động"
+      },
+      "buttons": {
+        "edit": "Sửa",
+        "delete": "Xóa"
+      },
+      "noData": "Không tìm thấy quiz nào"
+    },
+    "modalUpdate": {
+      "title": "Cập nhật Quiz",
+      "fields": {
+        "name": "Tên",
+        "description": "Mô tả",
+        "difficulty": "Độ khó",
+        "upload": "Tải ảnh lên",
+        "preview": "Xem trước ảnh"
+      },
+      "buttons": {
+        "close": "Đóng",
+        "save": "Lưu"
+      },
+      "messages": {
+        "invalidName": "Tên không hợp lệ",
+        "invalidDescription": "Mô tả không hợp lệ"
+      }
+    },
+    "modalDelete": {
+      "title": "Xác nhận xóa Quiz?",
+      "message": "Bạn có chắc chắn muốn xóa quiz này không? ID: {{id}}",
+      "buttons": {
+        "cancel": "Hủy",
+        "confirm": "Xác nhận"
+      }
+    }
+  },
+  "quizQA": {
+    "title": "Cập nhật Q/A Quiz",
+    "selectQuiz": "Chọn Quiz:",
+    "addQuestion": "Thêm Câu hỏi:",
+    "questionDescription": "Mô tả câu hỏi {{index}}",
+    "fileSelected": "{{count}} tệp đã chọn: {{name}}",
+    "answerLabel": "Câu trả lời {{index}}",
+    "buttons": {
+      "save": "Lưu Câu hỏi"
+    },
+    "validation": {
+      "chooseQuiz": "Vui lòng chọn một Quiz",
+      "emptyQuestion": "Mô tả Câu hỏi {{index}} không được để trống",
+      "emptyAnswer": "Câu trả lời {{answerIndex}} tại Câu hỏi {{questionIndex}} không được để trống"
+    }
+  },
+  "assignQuiz": {
+    "title": "Gán Quiz cho người dùng",
+    "fields": {
+      "quiz": "Chọn Quiz",
+      "user": "Chọn Người dùng"
+    },
+    "buttons": {
+      "assign": "Gán"
+    },
+    "messages": {
+      "success": "Gán quiz thành công",
+      "error": "Gán quiz thất bại"
+    }
+  },
+  "manageQuestions": {
+    "title": "Quản lý câu hỏi",
+    "selectQuiz": "Chọn Quiz",
+    "addQuestion": "Thêm câu hỏi",
+    "questionDescription": "Mô tả câu hỏi {{index}}",
+    "answer": "Câu trả lời {{index}}",
+    "saveQuestions": "Lưu câu hỏi",
+    "validation": {
+      "chooseQuiz": "Vui lòng chọn Quiz",
+      "questionNotEmpty": "Câu hỏi {{index}} không được để trống",
+      "answerNotEmpty": "Câu trả lời {{aIndex}} trong câu hỏi {{qIndex}} không được để trống",
+      "mustHaveCorrectAnswer": "Câu hỏi {{index}} phải có ít nhất một đáp án đúng"
+    },
+    "toast": {
+      "success": "Tạo câu hỏi và đáp án thành công!"
+    }
   }
 }
